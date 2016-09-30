@@ -1,0 +1,79 @@
+<html>
+<head>
+  <title>
+    {% block sub_title '' %}
+    {% block title 'Usuarios' %}
+  </title>
+  <base href="..">
+  <link href="{{ app.request.basepath }}/vendor/thomaspark/bootswatch/yeti/bootstrap.css" rel="stylesheet">
+
+</head>
+<body>
+
+  <!-- menu -->
+<!-- barra de navegación -->
+  <nav class="navbar navbar-inverse navbar-static-top">
+
+    <div class="container">
+		  <div class="navbar-header">
+
+        <!-- botón para colapsar un menú -->
+			  <button type="button" class="navbar-toggle collapsed"
+            data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				  <span class="sr-only">Toggle navigation</span>
+				  <span class="icon-bar"></span>
+				  <span class="icon-bar"></span>
+				  <span class="icon-bar"></span>
+			  </button>
+
+        <!-- Nombre de la Applicación -->
+			  <a class="navbar-brand" href="{{ url('login') }}">
+				  Ejemplo
+			  </a>
+		  </div>
+
+		  <div class="collapse navbar-collapse" >
+
+        <!-- Opciones del menú  -->
+        <ul class="nav navbar-nav navbar-left">
+          <li class="dropdown">
+            <a href="#"  class="dropdown-toggle" data-toggle="dropdown">
+              Usuarios
+            <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+              <li><a href="{{ url('users-edit') }}">Crear nuevo</a></li>
+							<li><a href="{{ url('users-list') }}">Ver todos</a></li>
+						</ul>
+          </li>
+			  </ul>
+
+        <!-- Opciones del menú del usuario -->
+			  <ul class="nav navbar-nav navbar-right">
+	  			<li class="dropdown ">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+               role="button" aria-expanded="false">
+						  {{ user }}
+						<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="{{ url('doLogout') }}">Salir</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div><!-- /.navbar-collapse -->
+		</div><!-- /.container-fluid -->
+	</nav>
+  <!-- contenido -->
+
+  <div class="container">
+
+  {% block body %}
+    Bienvenido a la Aplicación !
+  {% endblock %}
+
+  </div>
+
+  <script src="{{ app.request.basepath }}/vendor/components/jquery/jquery.js"></script>
+	<script src="{{ app.request.basepath }}/vendor/twbs/bootstrap/dist/js/bootstrap.js"></script>
+
+</body>
+</html>
