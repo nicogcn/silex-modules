@@ -30,6 +30,43 @@ class PerrosController implements ControllerProviderInterface{
     // hace un bind
     })->bind('perros-list');
 
+    $controller->get('/edit', function() use($app) {
+
+      // obtiene el nombre de usuario de la sesión
+      $user = $app['session']->get('user');
+
+      // ya ingreso un usuario ?
+      if ( isset( $user ) && $user != '' ) {
+        // muestra la plantilla
+        return $app['twig']->render('Perros/perros.edit.html.twig', array(
+          'user' => $user
+        ));
+
+      } else {
+        // redirige el navegador a "/login"
+        return $app->redirect( $app['url_generator']->generate('login'));
+      }
+
+    // hace un bind
+    })->bind('perros-edit');
+
+    $controller->post('/perros-save', function(Request $request) use($app) {
+
+  $perros = $app['session']->get('perros');
+
+  $perros[] = array(
+    'nombre' => $request->get('nombre'),
+    'raza' => $request->get('raza'),
+    'edad' => $request->get('edad')
+  );
+
+  $app['session']->set('perros', $perros);
+
+  return $app->redirect( $app['url_generator']->generate('perros-list'));
+
+// hace un bind
+})->bind('perros-save');
+
     return $controller;
 
   }
